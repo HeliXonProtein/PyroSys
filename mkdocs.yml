@@ -1,0 +1,83 @@
+# Project information
+site_name: PyroSys
+site_description: PyroSys is an open-source Python framework that ignites new possibilities in computational structural biology.
+site_author: Helixon Team
+
+# Extensions
+markdown_extensions:
+
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - markdown_include.include:
+      base_path: docs
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_category_heading: true
+            show_bases: true
+            group_by_category: true
+            heading_level: 2
+            show_signature_annotations: true
+            separate_signature: true
+            docstring_section_style: spacy
+            show_symbol_type_heading: true
+            members_order: source
+            show_if_no_docstring: false
+            preload_modules: []
+            inherited_members: true
+            filters: ["!^_"]
+            docstring_options:
+              ignore_init_summary: true
+              returns_named_value: true
+            examples_style: doctest
+  - git-revision-date-localized:
+      type: datetime
+      fallback_to_build_date: true
+  - mkdocs-jupyter
+
+# Page tree
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Architecture: architecture.md
+    - Features: features.md
+  - Development: development.md
+
+hooks:
+  - docs/hooks.py

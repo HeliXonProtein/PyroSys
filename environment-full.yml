@@ -1,0 +1,26 @@
+name: pyrosys
+channels:
+  - conda-forge
+dependencies:
+  - pyarrow
+  - biopython
+  - pytorch-lightning
+  - ray-default
+  - ray-data
+  - ray-train
+  - click
+  - pytest
+  - mypy
+  - ruff
+  - pip
+  - pip:
+    - mkdocs
+    - mkdocs-material
+    - mkdocs-material-extensions
+    - mkdocs-git-revision-date-localized-plugin
+    - mkdocs-git-revision-date-plugin
+    - mkdocs-git-authors-plugin
+    - mkdocs-git-revision-date-localized-plugin
+    - mkdocs-jupyter
+    - mkdocstrings-python
+    - markdown-include
