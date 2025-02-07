@@ -26,7 +26,10 @@ jobs:
         .ci/autosetup.sh
     
     - name: Run Ruff Check
+      shell: bash -el {0}
       run: |
+        echo "Activating conda environment for Ruff Check"
+        source activate pyrosys
         mkdir -p reports
         ruff check src --fix --output-format=junit --output-file=reports/ruff-lint.xml
         
@@ -39,11 +42,18 @@ jobs:
         reporter: java-junit
 
     - name: Run Ruff Format
-      run: ruff format . --diff
+      shell: bash -el {0}
+      run: |
+        echo "Activating conda environment for Ruff Format"
+        source activate pyrosys
+        ruff format . --diff
         
     - name: Run Mypy
       continue-on-error: true
+      shell: bash -el {0}
       run: |
+        echo "Activating conda environment for Mypy"
+        source activate pyrosys
         mkdir -p reports
         mypy src tests > reports/mypy.log
         
@@ -54,7 +64,10 @@ jobs:
         path: reports/mypy.log
         
     - name: Run Tests
+      shell: bash -el {0}
       run: |
+        echo "Activating conda environment for Tests"
+        source activate pyrosys
         mkdir -p reports
         pytest --junit-xml=reports/unittest.xml ./tests
         
