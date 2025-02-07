@@ -26,6 +26,7 @@ jobs:
         .ci/autosetup.sh
         
     - name: Build Docs
+      shell: bash -el {0}
       run: |
         mkdocs build
         
