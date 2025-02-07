@@ -19,8 +19,6 @@ else
     fi
     echo "Creating new environment"
 
-    source $CONDA_BASE_PREFIX/etc/profile.d/conda.sh && \
-    conda init bash && \
     conda config --show && \
     conda config --set always_yes yes && \
     conda clean -i && \
