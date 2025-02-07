@@ -15,8 +15,9 @@ jobs:
     - name: Setup Conda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        activate-environment: pyrosys-dev
-        
+        activate-environment: pyrosys
+        auto-activate-base: false
+
     - name: Setup Environment
       shell: bash -el {0}
       env:
@@ -26,12 +27,12 @@ jobs:
         
     - name: Build Docs
       run: |
-        mkdocs build --site-dir _site
+        mkdocs build
         
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: _site
+        path: site
 
   deploy:
     needs: build
