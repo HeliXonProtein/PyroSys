@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop, release/*]
+  pull_request:
+    branches: [main, develop, release/*]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: build-env
+        python-version: "3.12"
+        
+    - name: Build
+      run: |
+        .ci/autosetup.sh
+        
+  code-quality:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run Ruff Check
+      run: |
+        mkdir -p reports
+        ruff check src --fix --output-format=junit --output-file=reports/ruff-lint.xml
+        
+    - name: Publish Ruff Results
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Ruff Tests
+        path: reports/ruff-lint.xml
+        reporter: java-junit
+        
+  formatting:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Run Ruff Format
+      run: ruff format . --diff
+      
+  static-check:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - uses: actions/checkout@v3
+        
+    - name: Run Mypy
+      continue-on-error: true
+      run: |
+        mkdir -p reports
+        mypy src tests > reports/mypy.log
+        
+    - name: Upload Mypy Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: mypy-results
+        path: reports/mypy.log
+        
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+        
+    - name: Run Tests
+      run: |
+        mkdir -p reports
+        pytest --junit-xml=reports/unittest.xml ./tests
+        
+    - name: Publish Test Results
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Pytest Tests
+        path: reports/unittest.xml
+        reporter: java-junit
