@@ -26,16 +26,6 @@ ENV_NAME=${env_name:-pyrosys}
 DEV_MODE=${dev_mode:-0}
 CI_MODE=${ci_mode:-0}
 
-# Detect CUDA version
-if [ "$CI_MODE" -eq 0 ]; then
-    if command -v nvidia-smi &> /dev/null; then
-        DRIVER_VERSION=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -n 1 | cut -d'.' -f1)
-    else
-        echo "CUDA is not installed. Please install CUDA before running this script."
-        exit 1
-    fi
-fi
-
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -65,6 +55,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ "$CI_MODE" -eq 0 ]; then
+    # Detect CUDA version
+    if command -v nvidia-smi &> /dev/null; then
+        DRIVER_VERSION=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -n 1 | cut -d'.' -f1)
+    else
+        echo "CUDA is not installed. Please install CUDA before running this script."
+        exit 1
+    fi
     echo "Welcome to PyroSys installation script!"
     conda config --set always_yes yes
     conda create -y -n $ENV_NAME python=$PYTHON_VERSION
