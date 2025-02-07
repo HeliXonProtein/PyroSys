@@ -17,6 +17,7 @@ jobs:
       uses: conda-incubator/setup-miniconda@v3
       with:
         activate-environment: pyrosys
+        auto-activate-base: false
         
     - name: Build
       shell: bash -el {0}
@@ -28,8 +29,6 @@ jobs:
     - name: Run Ruff Check
       shell: bash -el {0}
       run: |
-        echo "Activating conda environment for Ruff Check"
-        source activate pyrosys
         mkdir -p reports
         ruff check src --fix --output-format=junit --output-file=reports/ruff-lint.xml
         
@@ -44,16 +43,12 @@ jobs:
     - name: Run Ruff Format
       shell: bash -el {0}
       run: |
-        echo "Activating conda environment for Ruff Format"
-        source activate pyrosys
         ruff format . --diff
         
     - name: Run Mypy
       continue-on-error: true
       shell: bash -el {0}
       run: |
-        echo "Activating conda environment for Mypy"
-        source activate pyrosys
         mkdir -p reports
         mypy src tests > reports/mypy.log
         
@@ -66,8 +61,6 @@ jobs:
     - name: Run Tests
       shell: bash -el {0}
       run: |
-        echo "Activating conda environment for Tests"
-        source activate pyrosys
         mkdir -p reports
         pytest --junit-xml=reports/unittest.xml ./tests
         
