@@ -67,14 +67,16 @@ if [ "$CI_MODE" -eq 0 ]; then
     conda config --set always_yes yes
     conda create -y -n $ENV_NAME python=$PYTHON_VERSION
     conda activate $ENV_NAME
-fi
-
-# Install Pytorch based on CUDA version
-if [ "$DRIVER_VERSION" -ge 535 ]; then
-    conda install -y pytorch==2.5.0 pytorch-cuda=12.1 -c pytorch -c nvidia
+    # Install Pytorch based on CUDA version
+    if [ "$DRIVER_VERSION" -ge 535 ]; then
+        conda install -y pytorch==2.5.0 pytorch-cuda=12.1 -c pytorch -c nvidia
+    else
+        echo "Unsupported CUDA version. Please install CUDA 12.1 or later."
+        exit 1
+    fi
 else
-    echo "Unsupported CUDA version. Please install CUDA 12.1 or later."
-    exit 1
+    echo "CI mode installation, skip GPU based Pytorch installation"
+    conda install -y pytorch cpuonly -c pytorch
 fi
 
 # Install Other Dependencies
