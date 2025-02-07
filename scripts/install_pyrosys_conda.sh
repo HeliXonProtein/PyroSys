@@ -83,7 +83,7 @@ fi
 if [ "$DEV_MODE" -eq 0 ]; then
     conda env update -f environment.yml
 elif [ "$CI_MODE" -eq 1 ]; then
-    conda env update -f environment-full.yml -p $ENV_PREFIX -q
+    conda env update -f environment-full.yml -q
 else
     conda env update -f environment-full.yml
 fi
