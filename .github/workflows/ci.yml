@@ -17,9 +17,10 @@ jobs:
       uses: conda-incubator/setup-miniconda@v2
       with:
         activate-environment: build-env
-        python-version: "3.12"
         
     - name: Build
+      env:
+        WORKSPACE: ${{ github.workspace }}
       run: |
         .ci/autosetup.sh
         
