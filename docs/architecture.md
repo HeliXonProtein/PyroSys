@@ -5,7 +5,9 @@ PyroSys: A dynamic framework for PYthon based computational pROtein SYStems biol
 ## Core Components
 
 There are two part of one AI model:
+
 1. The `Model` which is the model itself that holds the parameters and basic inference logic. Once you have a model, you can use it to make predictions.
+
 2. The `Trainer` which is the part of how to get the model parameters from scratch. You DON'T need a `Trainer` to just use the `model`.
 
 ### Zen of PyroSys

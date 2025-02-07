@@ -2,7 +2,7 @@
 
 PyroSys: A dynamic framework for PYthon based computational pROtein SYStems biology.
 
-PyroSys is an open-source Python framework that ignites new possibilities in computational structural biology. Just as pyrophosphate bonds drive the energetics of biological systems, PyroSys powers the analysis of protein structures and their dynamic interactions through an integrated systems biology approach.
+[PyroSys](https://jubilant-adventure-plyengq.pages.github.io/) is an open-source Python framework that ignites new possibilities in computational structural biology. Just as pyrophosphate bonds drive the energetics of biological systems, PyroSys powers the analysis of protein structures and their dynamic interactions through an integrated systems biology approach.
 
 ## 🌟 Why PyroSys?
 
@@ -34,7 +34,7 @@ TODO! Update conda installation, for Helixon users, we need to use source code i
 conda install -c conda-forge -c pytorch -c nvidia pytorch pytorch-cuda pyrosys
 ```
 Conda based installation is recommended.
-If you want to install the latest version or you want to contribute to PyroSys, please refer to the [Development Guide](./docs/development.md).
+If you want to install the latest version or you want to contribute to PyroSys, please refer to the [Installation Guide](https://jubilant-adventure-plyengq.pages.github.io/installation/).
 
 ## 💡 Contributing
 
@@ -49,8 +49,8 @@ Check our **[Contributing Guide](./docs/CODE_OF_CONDUCT.md)** to get started!
 
 To help you get and your AI agent started with development using PyroSys, we provide detailed documentation:
 
-- 🏗️ **[Architecture Guide](./docs/architecture.md)**: Understand the system design and core components
-- ✨ **[Features Documentation](./docs/features.md)**: Learn about available features and how to implement your own models
+- 🏗️ **[Architecture Guide](./docs/architecture.md)**: Understand the system design and core components.
+- ✨ **[Features Documentation](./docs/features.md)**: Learn about available features and how to implement your own models.
 
 These documents are essential reading for:
 - Building custom protein structure prediction models
