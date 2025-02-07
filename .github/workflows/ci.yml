@@ -7,7 +7,7 @@ on:
     branches: [main, develop, release/*]
 
 jobs:
-  build:
+  full-install-CI:
     runs-on: ubuntu-latest
     
     steps:
@@ -24,13 +24,6 @@ jobs:
         WORKSPACE: ${{ github.workspace }}
       run: |
         .ci/autosetup.sh
-        
-  code-quality:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
     
     - name: Run Ruff Check
       run: |
@@ -44,24 +37,9 @@ jobs:
         name: Ruff Tests
         path: reports/ruff-lint.xml
         reporter: java-junit
-        
-  formatting:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
 
     - name: Run Ruff Format
       run: ruff format . --diff
-      
-  static-check:
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    
-    steps:
-    - uses: actions/checkout@v3
         
     - name: Run Mypy
       continue-on-error: true
@@ -74,13 +52,6 @@ jobs:
       with:
         name: mypy-results
         path: reports/mypy.log
-        
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
         
     - name: Run Tests
       run: |
