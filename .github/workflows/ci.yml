@@ -48,7 +48,7 @@ jobs:
         mypy src tests > reports/mypy.log
         
     - name: Upload Mypy Results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: mypy-results
         path: reports/mypy.log
